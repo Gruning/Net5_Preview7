@@ -16,5 +16,7 @@ namespace Net5_Model.Models
         public double Price { get; set; }
         public int BookDetail_Id { get; set; }
         public FluentBookDetail FluentBookDetail { get; set; }
+        public int Publisher_Id { get; set; }
+        public FluentPublisher FluentPublisher { get; set; }
     }
 }

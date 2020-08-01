@@ -14,5 +14,6 @@ namespace Net5_Model.Models
         public string Name { get; set; }
         public string Location { get; set; }
 
+        public List<FluentBook> FluentBooks { get; set; }
     }
 }
