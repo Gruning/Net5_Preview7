@@ -11,6 +11,8 @@ namespace Net5_Model.Models
     {
         public int BookId { get; set; }
         public int AuthorId { get; set; }
+        public FluentBook FluentBook { get; set; }
+        public FluentAuthor FluentAuthor { get; set; }
 
     }
 }

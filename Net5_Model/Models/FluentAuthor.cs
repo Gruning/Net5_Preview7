@@ -20,6 +20,7 @@ namespace Net5_Model.Models
                 return $"{FirstName} {LastName}"; 
             } 
         }
-        
+        public ICollection<FluentBookAuthor> FluentBookAuthors{ get; set; }
+
     }
 }

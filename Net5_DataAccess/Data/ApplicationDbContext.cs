@@ -47,10 +47,18 @@ namespace Net5_DataAccess.Data
             modelBuilder.Entity<FluentBook>()
                 .HasOne(b => b.FluentBookDetail)
                 .WithOne(b => b.FluentBook).HasForeignKey<FluentBook>("BookDetail_Id");
-            //oen to many relation publisher and book
+            //one to many relation publisher and book
             modelBuilder.Entity<FluentBook>()
                 .HasOne(b => b.FluentPublisher)
                 .WithMany(b => b.FluentBooks).HasForeignKey(b => b.Publisher_Id);
+            //many to many relation books authors
+            modelBuilder.Entity<FluentBookAuthor>().HasKey(ba => new { ba.AuthorId, ba.BookId });
+            modelBuilder.Entity<FluentBookAuthor>()
+                .HasOne(b => b.FluentBook)
+                .WithMany(b => b.FluentBookAuthors).HasForeignKey(b => b.BookId);
+            modelBuilder.Entity<FluentBookAuthor>()
+                .HasOne(b => b.FluentAuthor)
+                .WithMany(b => b.FluentBookAuthors).HasForeignKey(b => b.AuthorId);
 
             //Author
             modelBuilder.Entity<FluentAuthor>().HasKey(a => a.Author_Id);

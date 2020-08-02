@@ -18,5 +18,6 @@ namespace Net5_Model.Models
         public FluentBookDetail FluentBookDetail { get; set; }
         public int Publisher_Id { get; set; }
         public FluentPublisher FluentPublisher { get; set; }
+        public ICollection<FluentBookAuthor> FluentBookAuthors{ get; set; }
     }
 }
