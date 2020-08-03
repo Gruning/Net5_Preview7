@@ -66,10 +66,7 @@ namespace Net5_DataAccess.Data
             modelBuilder.Entity<FluentAuthor>().Property(a => a.LastName).IsRequired();
             modelBuilder.Entity<FluentAuthor>().Ignore(a => a.FullName);
 
-            //Publisher
-            modelBuilder.Entity<FluentPublisher>().HasKey(p => p.Publisher_Id);
-            modelBuilder.Entity<FluentPublisher>().Property(p => p.Name).IsRequired();
-            modelBuilder.Entity<FluentPublisher>().Property(p => p.Location).IsRequired();
+
 
 
         }
