@@ -60,12 +60,7 @@ namespace Net5_DataAccess.Data
                 .HasOne(b => b.FluentAuthor)
                 .WithMany(b => b.FluentBookAuthors).HasForeignKey(b => b.AuthorId);
 
-            //Author
-            modelBuilder.Entity<FluentAuthor>().HasKey(a => a.Author_Id);
-            modelBuilder.Entity<FluentAuthor>().Property(a => a.FirstName).IsRequired();
-            modelBuilder.Entity<FluentAuthor>().Property(a => a.LastName).IsRequired();
-            modelBuilder.Entity<FluentAuthor>().Ignore(a => a.FullName);
-
+ 
 
 
 

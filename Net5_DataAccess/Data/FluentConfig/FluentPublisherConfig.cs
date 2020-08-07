@@ -11,12 +11,12 @@ namespace Net5_DataAccess.Data.FluentConfig
 {
     public class FluentPublisherConfig : IEntityTypeConfiguration<FluentPublisher>
     {
-        public void Configure(EntityTypeBuilder<FluentPublisher> bulder)
+        public void Configure(EntityTypeBuilder<FluentPublisher> modelBulder)
         {
             //Publisher
-            modelBuilder.Entity<FluentPublisher>().HasKey(p => p.Publisher_Id);
-            modelBuilder.Entity<FluentPublisher>().Property(p => p.Name).IsRequired();
-            modelBuilder.Entity<FluentPublisher>().Property(p => p.Location).IsRequired();
+            modelBuilder.HasKey(p => p.Publisher_Id);
+            modelBuilder.Property(p => p.Name).IsRequired();
+            modelBuilder.Property(p => p.Location).IsRequired();
         }
     }
 }
