@@ -11,7 +11,7 @@ namespace Net5_DataAccess.Data.FluentConfig
 {
     public class FluentPublisherConfig : IEntityTypeConfiguration<FluentPublisher>
     {
-        public void Configure(EntityTypeBuilder<FluentPublisher> modelBulder)
+        public void Configure(EntityTypeBuilder<FluentPublisher> modelBuilder)
         {
             //Publisher
             modelBuilder.HasKey(p => p.Publisher_Id);
