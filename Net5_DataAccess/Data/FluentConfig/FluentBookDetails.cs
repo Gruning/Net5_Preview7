@@ -11,13 +11,10 @@ namespace Net5_DataAccess.Data.FluentConfig
 {
     public class FluentBookDetailsConfig : IEntityTypeConfiguration<FluentBookDetail>
     {
-        public void Configure(EntityTypeBuilder<FluentBookDetail> modelBulder)
+        public void Configure(EntityTypeBuilder<FluentBookDetail> modelBuilder)
         {
-            throw new NotImplementedException();
-            //modelBuilder.HasKey(a => a.Author_Id);
-            //modelBuilder.Property(a => a.FirstName).IsRequired();
-            //modelBuilder.Property(a => a.LastName).IsRequired();
-            //modelBuilder.Ignore(a => a.FullName);
+            modelBuilder.HasKey(a => a.BookDetail_Id);
+            modelBuilder.Property(a => a.NumberOfChapters).IsRequired();
 
         }
     }
