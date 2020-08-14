@@ -61,14 +61,7 @@ namespace Net5_DataAccess.Data
             //    .WithMany(b => b.FluentBookAuthors).HasForeignKey(b => b.AuthorId);
 
 
-            ////many to many relation books authors
-            //modelBuilder.Entity<FluentBookAuthor>().HasKey(ba => new { ba.AuthorId, ba.BookId });
-            //modelBuilder.Entity<FluentBookAuthor>()
-            //    .HasOne(b => b.FluentBook)
-            //    .WithMany(b => b.FluentBookAuthors).HasForeignKey(b => b.BookId);
-            //modelBuilder.Entity<FluentBookAuthor>()
-            //    .HasOne(b => b.FluentAuthor)
-            //    .WithMany(b => b.FluentBookAuthors).HasForeignKey(b => b.AuthorId);
+
 
 
 
