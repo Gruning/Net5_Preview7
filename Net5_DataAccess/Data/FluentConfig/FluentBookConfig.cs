@@ -14,12 +14,14 @@ namespace Net5_DataAccess.Data.FluentConfig
 
         public void Configure(EntityTypeBuilder<FluentBook> builder)
         {
-
+            //name of table
+            //Book
             builder.HasKey(b => b.Book_Id);
             builder.Property(b => b.ISBN).IsRequired().HasMaxLength(15);
             builder.Property(b => b.Title).IsRequired();
             builder.Property(b => b.Price).IsRequired();
             
+            //relations
             //one to oone relation between book and bookdetail
             builder
                 .HasOne(b => b.FluentBookDetail)
