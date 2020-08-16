@@ -36,7 +36,12 @@ namespace Net5_DataAccess.Data
         //composite key
         modelBuilder.Entity<BookAuthor>().HasKey(ba => new { ba.AuthorId, ba.BookId });
 
-            modelBuilder.ApplyConfiguration(new FluentBookConfig());
+        modelBuilder.ApplyConfiguration(new FluentAuthorConfig());
+        modelBuilder.ApplyConfiguration(new FluentBookAuthorConfig());
+        modelBuilder.ApplyConfiguration(new FluentBookConfig());
+        modelBuilder.ApplyConfiguration(new FluentBookDetailsConfig());
+        modelBuilder.ApplyConfiguration(new FluentPublisherConfig());
+
 
         }
     }
