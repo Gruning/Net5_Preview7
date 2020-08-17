@@ -6,9 +6,9 @@ namespace Net5_DataAccess.Migrations
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.Sql("insert into tbl_Category value('Cat 1')");
-            migrationBuilder.Sql("insert into tbl_Category value('Cat 1')");
-            migrationBuilder.Sql("insert into tbl_Category value('Cat 1')");
+            migrationBuilder.Sql("insert into tbl_Category values('Cat 1')");
+            migrationBuilder.Sql("insert into tbl_Category values('Cat 1')");
+            migrationBuilder.Sql("insert into tbl_Category values('Cat 1')");
 
         }
 
