@@ -28,6 +28,11 @@ namespace Net5_Preview7.Controllers
                 return View(obj);
             }
             obj = _db.Categories.FirstOrDefault(u => u.Category_Id == id);
+            if (obj == null)
+            {
+                return NotFound();
+            }
+
             return View(obj);
 
         }
