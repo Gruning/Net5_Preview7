@@ -17,8 +17,19 @@ namespace Net5_Preview7.Controllers
         }
         public IActionResult Index()
         {
-            List<Category> obj = _db.Categories.ToList();
-            return View();
+            List<Category> objList = _db.Categories.ToList();
+            return View(objList);
+        }
+        public IActionResult Upsert(int? id)
+        {
+            Category obj = new Category();
+            if (id == null)
+            {
+                return View(obj);
+            }
+            obj = _db.Categories.FirstOrDefault(u => u.Category_Id == id);
+            return View(obj);
+
         }
     }
 }
