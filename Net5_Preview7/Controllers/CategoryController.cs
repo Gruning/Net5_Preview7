@@ -36,5 +36,32 @@ namespace Net5_Preview7.Controllers
             return View(obj);
 
         }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Upsert(Category obj)
+        {
+            if (ModelState.IsValid)
+            {
+                if (obj.Category_Id == 0)
+                {
+                    _db.Categories.Add(obj);
+                }
+                else
+                {
+                    _db.Categories.Update(obj);
+                }
+                _db.SaveChanges();
+                return RedirectToAction(nameof(Index));
+            }
+            return View(obj);
+        }
+
+        public IActionResult Delete(int id)
+        {
+            var obj = _db.Categories.FirstOrDefault(u => u.Category_Id == id);
+            _db.Categories.Remove(obj);
+            _db.SaveChanges();
+            return RedirectToAction(nameof(Index));
+        }
     }
 }
