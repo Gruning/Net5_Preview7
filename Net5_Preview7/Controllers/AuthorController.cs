@@ -17,39 +17,30 @@ namespace Net5_Preview7.Controllers
         }
         public IActionResult Index()
         {
-            List<Category> objList = _db.Categories.ToList();
+            List<Author> objList = _db.Authors.ToList();
             return View(objList);
         }
         public IActionResult Upsert(int? id)
         {
-            Category obj = new Category();
-            if (id == null)
-            {
-                return View(obj);
-            }
-            obj = _db.Categories.FirstOrDefault(u => u.Category_Id == id);
-            if (obj == null)
-            {
-                return NotFound();
-            }
+            Author obj = new Author();
+            if (id != null)
+                obj = _db.Authors.FirstOrDefault(u => u.Author_Id == id);
+                if (obj == null)
+                    return NotFound();
 
             return View(obj);
 
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Upsert(Category obj)
+        public IActionResult Upsert(Author obj)
         {
             if (ModelState.IsValid)
             {
-                if (obj.Category_Id == 0)
-                {
-                    _db.Categories.Add(obj);
-                }
-                else
-                {
-                    _db.Categories.Update(obj);
-                }
+                if (obj.Author_Id == 0) _db.Authors.Add(obj);
+                
+                else _db.Authors.Update(obj);
+                
                 _db.SaveChanges();
                 return RedirectToAction(nameof(Index));
             }
@@ -58,8 +49,8 @@ namespace Net5_Preview7.Controllers
 
         public IActionResult Delete(int id)
         {
-            var obj = _db.Categories.FirstOrDefault(u => u.Category_Id == id);
-            _db.Categories.Remove(obj);
+            var obj = _db.Authors.FirstOrDefault(u => u.Author_Id == id);
+            _db.Authors.Remove(obj);
             _db.SaveChanges();
             return RedirectToAction(nameof(Index));
         }

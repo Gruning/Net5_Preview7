@@ -17,7 +17,7 @@ namespace Net5_Preview7.Controllers
         }
         public IActionResult Index()
         {
-            IEnumerable<Publisher> objList = _db.Publishers.AsEnumerable();
+            List<Publisher> objList = _db.Publishers.ToList();
             return View(objList);
         }
         public IActionResult Upsert(int? id)

@@ -1,11 +1,11 @@
-﻿@model IEnumerable<Net5_Model.Models.Publisher>
+﻿@model IEnumerable<Net5_Model.Models.Author>
 
 <br />
 <br />
 <div class="border p-4 bg-white">
     <div class="row">
         <div class="col-10">
-            <h2 class="text-info"> Publisher List</h2>
+            <h2 class="text-info"> Authors List</h2>
         </div>
         <div class="col-2 text-right">
             <a asp-action="Upsert" class="btn btn-info form-control"> Create New </a>
@@ -18,7 +18,10 @@
             <table class="table table-striped border">
                 <tr class="table-secondary">
                     <th>
-                        Publisher Name
+                        Full Name
+                    </th>
+                    <th>
+                        Birth Date
                     </th>
                     <th>
                         Location
@@ -29,17 +32,20 @@
                 {
                     <tr>
                         <td>
-                            @item.Name
+                            @item.FullName
+                        </td>
+                        <td>
+                            @item.BirthDate.ToShortDateString()
                         </td>
                         <td>
                             @item.Location
                         </td>
                         <td>
-                            <a class="btn btn-primary text-white" asp-action="Upsert" asp-route-Id="@item.Publisher_Id">
+                            <a class="btn btn-primary text-white" asp-action="Upsert" asp-route-Id="@item.Author_Id">
                                 Edit
                             </a>
 
-                            <a class="btn btn-danger text-white" asp-action="Delete" asp-route-Id="@item.Publisher_Id">
+                            <a class="btn btn-danger text-white" asp-action="Delete" asp-route-Id="@item.Author_Id">
                                 Delete
                             </a>
                         </td>
@@ -49,7 +55,7 @@
         }
         else
         {
-            <p>No publisher exists...</p>
+            <p>No author exists...</p>
         }
     </div>
 </div>
