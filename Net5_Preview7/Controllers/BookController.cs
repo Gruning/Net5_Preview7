@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -20,6 +21,14 @@ namespace Net5_Preview7.Controllers
         public IActionResult Index()
         {
             List<Book> objList = _db.Books.ToList();
+            foreach (var obj in objList)
+            {
+                //least efficient
+                //obj.Publisher = _db.Publishers.FirstOrDefault(x => x.Publisher_Id == obj.Publisher_Id);
+                
+                //ecplicit loading. more efficient
+                _db.Entry(obj).Reference(x => x.Publisher).Load();
+            }
             return View(objList);
         }
         public IActionResult Upsert(int? id)
@@ -51,6 +60,35 @@ namespace Net5_Preview7.Controllers
             _db.SaveChanges();
             return RedirectToAction(nameof(Index));
             
+        }
+
+        public IActionResult Details(int? id)
+        {
+            BookVM obj = new BookVM();
+
+            if (id != null)
+            {
+                obj.Book = _db.Books.FirstOrDefault(u => u.Book_Id == id);
+                obj.Book.BookDetail = _db.BookDetails.FirstOrDefault(u => u.BookDetail_Id == obj.Book.BookDetail_Id);
+
+            }
+            if (obj == null)
+                return NotFound();
+
+            return View(obj);
+
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Details(BookVM obj)
+        {
+            if (obj.Book.Book_Id == 0) _db.Books.Add(obj.Book);
+
+            else _db.Books.Update(obj.Book);
+
+            _db.SaveChanges();
+            return RedirectToAction(nameof(Index));
+
         }
 
         public IActionResult Delete(int id)
