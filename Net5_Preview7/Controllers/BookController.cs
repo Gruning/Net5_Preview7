@@ -82,9 +82,9 @@ namespace Net5_Preview7.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Details(BookVM obj)
         {
-            if (obj.Book.Book_Id == 0) _db.Books.Add(obj.Book);
+            if (obj.Book.BookDetail.BookDetail_Id == 0) _db.BookDetails.Add(obj.Book.BookDetail);
 
-            else _db.Books.Update(obj.Book);
+            else _db.BookDetailss.Update(obj.Book.BookDetail);
 
             _db.SaveChanges();
             return RedirectToAction(nameof(Index));
