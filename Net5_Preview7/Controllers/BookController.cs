@@ -5,6 +5,7 @@ using System.Security.Cryptography.X509Certificates;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
 using Net5_DataAccess.Data;
 using Net5_Model.Models;
 using Net5_Model.ViewModels;
@@ -84,7 +85,7 @@ namespace Net5_Preview7.Controllers
         {
             if (obj.Book.BookDetail.BookDetail_Id == 0) _db.BookDetails.Add(obj.Book.BookDetail);
 
-            else _db.BookDetailss.Update(obj.Book.BookDetail);
+            else _db.BookDetails.Update(obj.Book.BookDetail);
 
             _db.SaveChanges();
             return RedirectToAction(nameof(Index));
@@ -128,6 +129,13 @@ namespace Net5_Preview7.Controllers
             IQueryable<Book> bookList2 = _db.Books;
             var filteredBook2 = bookList1.Where(b => b.Price > 500).ToList();
 
+            //updating related data
+
+            var bookTemp1 = _db.Books.Include(b => b.BookDetail).FirstOrDefault(b => b.Book_Id == 4);
+
+            bookTemp1.BookDetail.NumberOfChapters = 2222;
+            
+            var bookTemp2 = _db.Books.Include(b => b.BookDetail).FirstOrDefault(b => b.Book_Id == 4);
 
 
             return RedirectToAction(nameof(Index));
