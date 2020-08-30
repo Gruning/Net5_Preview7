@@ -121,6 +121,15 @@ namespace Net5_Preview7.Controllers
             var bookCount1 = bookCollection2.Count();
 
             var bookCount2 = _db.Books.Count();
+
+            IEnumerable<Book> bookList1 = _db.Books;
+            var filteredBook1 = bookList1.Where(b => b.Price > 500).ToList();
+
+            IQueryable<Book> bookList2 = _db.Books;
+            var filteredBook2 = bookList1.Where(b => b.Price > 500).ToList();
+
+
+
             return RedirectToAction(nameof(Index));
         }
     }
