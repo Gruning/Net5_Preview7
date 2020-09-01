@@ -101,27 +101,27 @@ namespace Net5_Preview7.Controllers
         }
         public IActionResult PlayGround()
         {
-            var bookTemp = _db.Books.FirstOrDefault();
-            bookTemp.Price = 100;
+            //var bookTemp = _db.Books.FirstOrDefault();
+            //bookTemp.Price = 100;
 
-            var bookCollection = _db.Books;
-            double totalPrice = 0;
+            //var bookCollection = _db.Books;
+            //double totalPrice = 0;
 
-            foreach (var book in bookCollection)
-            {
-                totalPrice += book.Price;
-            }
+            //foreach (var book in bookCollection)
+            //{
+            //    totalPrice += book.Price;
+            //}
 
-            var bookList = _db.Books.ToList();
-            foreach (var book in bookList)
-            {
-                totalPrice += book.Price;
-            }
+            //var bookList = _db.Books.ToList();
+            //foreach (var book in bookList)
+            //{
+            //    totalPrice += book.Price;
+            //}
 
-            var bookCollection2 = _db.Books;
-            var bookCount1 = bookCollection2.Count();
+            //var bookCollection2 = _db.Books;
+            //var bookCount1 = bookCollection2.Count();
 
-            var bookCount2 = _db.Books.Count();
+            //var bookCount2 = _db.Books.Count();
 
             IEnumerable<Book> bookList1 = _db.Books;
             var filteredBook1 = bookList1.Where(b => b.Price > 500).ToList();
