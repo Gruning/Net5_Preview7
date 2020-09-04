@@ -99,6 +99,11 @@ namespace Net5_Preview7.Controllers
             _db.SaveChanges();
             return RedirectToAction(nameof(Index));
         }
+
+        public IActionResult ManageAuthors(int id)
+        {
+            return null;
+        }
         public IActionResult PlayGround()
         {
             //var bookTemp = _db.Books.FirstOrDefault();
