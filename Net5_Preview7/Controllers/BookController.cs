@@ -112,7 +112,31 @@ namespace Net5_Preview7.Controllers
 
         public IActionResult ManageAuthors(int id)
         {
-            return null;
+            BookAuthorVM obj = new BookAuthorVM
+            {
+                BookAuthorList = _db.BookAuthors
+                    .Include(a => a.Author)
+                    .Include(b => b.Book)
+                    .Where(b => b.BookId == id)
+                    .ToList(),
+                BookAuthor = new BookAuthor
+                {
+                    BookId = id,
+
+                },
+                Book = _db.Books.FirstOrDefault(b => b.Book_Id == id)
+            };
+            List<int> tempListOfAssignedAuthors = obj.BookAuthorList.Select(a => a.AuthorId).ToList();
+            //not in clause in LinQ
+            //get all the authors whose id is not in tempListOfAsssignedAuthors
+            var authorsWhoseIdNotInbook = _db.Authors.Where(a => !tempListOfAssignedAuthors.Contains(a.Author_Id)).ToList();
+            obj.AuthorList = authorsWhoseIdNotInbook.Select(sel => new SelectListItem
+            {
+                Text = sel.FullName,
+                Value = sel.Author_Id.ToString(),
+            });
+            return View(obj);
+                
         }
         public IActionResult PlayGround()
         {
@@ -146,6 +170,7 @@ namespace Net5_Preview7.Controllers
 
             var category = _db.Categories.FirstOrDefault();
             _db.Entry(category).State = EntityState.Modified;
+            _db.SaveChanges();
 
             //updating related data
 
