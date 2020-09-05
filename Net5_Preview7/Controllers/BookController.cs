@@ -21,15 +21,15 @@ namespace Net5_Preview7.Controllers
         }
         public IActionResult Index()
         {
-            List<Book> objList = _db.Books.ToList();
-            foreach (var obj in objList)
-            {
-                //least efficient
-                //obj.Publisher = _db.Publishers.FirstOrDefault(x => x.Publisher_Id == obj.Publisher_Id);
-                
-                //ecplicit loading. more efficient
-                _db.Entry(obj).Reference(x => x.Publisher).Load();
-            }
+            List<Book> objList = _db.Books.Include(x => x.Publisher).ToList();
+            //foreach (var obj in objList)
+            //{
+            //    //least efficient
+            //    //obj.Publisher = _db.Publishers.FirstOrDefault(x => x.Publisher_Id == obj.Publisher_Id);
+
+            //    //ecplicit loading. more efficient
+            //    _db.Entry(obj).Reference(x => x.Publisher).Load();
+            //}
             return View(objList);
         }
         public IActionResult Upsert(int? id)
@@ -69,7 +69,7 @@ namespace Net5_Preview7.Controllers
 
             if (id != null)
             {
-                obj.Book = _db.Books.FirstOrDefault(u => u.Book_Id == id);
+                obj.Book = _db.Books.Include(x=> x.BookDetail).FirstOrDefault(u => u.Book_Id == id);
                 obj.Book.BookDetail = _db.BookDetails.FirstOrDefault(u => u.BookDetail_Id == obj.Book.BookDetail_Id);
 
             }
@@ -82,12 +82,22 @@ namespace Net5_Preview7.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult Details(BookVM obj)
-        {
-            if (obj.Book.BookDetail.BookDetail_Id == 0) _db.BookDetails.Add(obj.Book.BookDetail);
+         {
+            if (obj.Book.BookDetail.BookDetail_Id == 0)
+            {
+                _db.BookDetails.Add(obj.Book.BookDetail);
+                _db.SaveChanges();
+                var bookFromDb = _db.Books.FirstOrDefault(x => x.Book_Id == obj.Book.Book_Id);
+                bookFromDb.BookDetail_Id = obj.Book.BookDetail.BookDetail_Id;
+                _db.SaveChanges();
 
-            else _db.BookDetails.Update(obj.Book.BookDetail);
+            }
+            else
+            {
+                _db.BookDetails.Update(obj.Book.BookDetail);
+                _db.SaveChanges();
+            }
 
-            _db.SaveChanges();
             return RedirectToAction(nameof(Index));
 
         }
