@@ -198,29 +198,35 @@ namespace Net5_Preview7.Controllers
 
             //var bookCount2 = _db.Books.Count();
 
-            IEnumerable<Book> bookList1 = _db.Books;
-            var filteredBook1 = bookList1.Where(b => b.Price > 500).ToList();
+            //IEnumerable<Book> bookList1 = _db.Books;
+            //var filteredBook1 = bookList1.Where(b => b.Price > 500).ToList();
 
-            IQueryable<Book> bookList2 = _db.Books;
-            var filteredBook2 = bookList2.Where(b => b.Price > 500).ToList();
+            //IQueryable<Book> bookList2 = _db.Books;
+            //var filteredBook2 = bookList2.Where(b => b.Price > 500).ToList();
 
-            var category = _db.Categories.FirstOrDefault();
-            _db.Entry(category).State = EntityState.Modified;
-            _db.SaveChanges();
+            //var category = _db.Categories.FirstOrDefault();
+            //_db.Entry(category).State = EntityState.Modified;
+            //_db.SaveChanges();
 
             //updating related data
 
-            var bookTemp1 = _db.Books.Include(b => b.BookDetail).FirstOrDefault(b => b.Book_Id == 4);
-            bookTemp1.BookDetail.NumberOfChapters = 2222;
-            _db.Books.Update(bookTemp1);
-            _db.SaveChanges();
+            //var bookTemp1 = _db.Books.Include(b => b.BookDetail).FirstOrDefault(b => b.Book_Id == 4);
+            //bookTemp1.BookDetail.NumberOfChapters = 2222;
+            //_db.Books.Update(bookTemp1);
+            //_db.SaveChanges();
 
 
-            var bookTemp2 = _db.Books.Include(b => b.BookDetail).FirstOrDefault(b => b.Book_Id == 4);
-            bookTemp2.BookDetail.Weight = 3333;
+            //var bookTemp2 = _db.Books.Include(b => b.BookDetail).FirstOrDefault(b => b.Book_Id == 4);
+            //bookTemp2.BookDetail.Weight = 3333;
 
-            _db.Books.Attach(bookTemp2);
-            _db.SaveChanges();
+            //_db.Books.Attach(bookTemp2);
+            //_db.SaveChanges();
+
+            //views
+            var vseciewList = _db.BookDetailsFromViews.ToList();
+            var viewList1 = _db.BookDetailsFromViews.FirstOrDefault();
+            var viewList2 = _db.BookDetailsFromViews.Where(b => b.Price > 500);
+
 
             return RedirectToAction(nameof(Index));
         }
