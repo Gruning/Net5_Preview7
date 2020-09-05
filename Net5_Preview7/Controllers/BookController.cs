@@ -21,15 +21,24 @@ namespace Net5_Preview7.Controllers
         }
         public IActionResult Index()
         {
-            List<Book> objList = _db.Books.Include(x => x.Publisher).ToList();
-            //foreach (var obj in objList)
-            //{
-            //    //least efficient
-            //    //obj.Publisher = _db.Publishers.FirstOrDefault(x => x.Publisher_Id == obj.Publisher_Id);
+            //List<Book> objList = _db.Books.Include(x => x.Publisher).ToList();
+            List<Book> objList = _db.Books.ToList();
 
-            //    //ecplicit loading. more efficient
-            //    _db.Entry(obj).Reference(x => x.Publisher).Load();
-            //}
+
+            foreach (var obj in objList)
+            {
+                //least efficient
+                //obj.Publisher = _db.Publishers.FirstOrDefault(x => x.Publisher_Id == obj.Publisher_Id);
+
+                //ecplicit loading. more efficient
+                _db.Entry(obj).Reference(x => x.Publisher).Load();
+                _db.Entry(obj).Collection (x => x.BookAuthors).Load();
+                foreach (var bookAuth in obj.BookAuthors)
+                {
+                    _db.Entry(bookAuth).Reference(b => b.Author).Load();
+                }
+
+            }
             return View(objList);
         }
         public IActionResult Upsert(int? id)
