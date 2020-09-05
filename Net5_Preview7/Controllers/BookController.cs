@@ -142,7 +142,7 @@ namespace Net5_Preview7.Controllers
             var filteredBook1 = bookList1.Where(b => b.Price > 500).ToList();
 
             IQueryable<Book> bookList2 = _db.Books;
-            var filteredBook2 = bookList1.Where(b => b.Price > 500).ToList();
+            var filteredBook2 = bookList2.Where(b => b.Price > 500).ToList();
 
             //updating related data
 
