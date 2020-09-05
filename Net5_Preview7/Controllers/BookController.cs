@@ -9,6 +9,7 @@ using Microsoft.EntityFrameworkCore;
 using Net5_DataAccess.Data;
 using Net5_Model.Models;
 using Net5_Model.ViewModels;
+using Newtonsoft.Json.Schema;
 
 namespace Net5_Preview7.Controllers
 { 
@@ -227,8 +228,23 @@ namespace Net5_Preview7.Controllers
             var viewList1 = _db.BookDetailsFromViews.FirstOrDefault();
             var viewList2 = _db.BookDetailsFromViews.Where(b => b.Price > 500);
 
+            //raw SQL
+            var bookRaw = _db.Books.FromSqlRaw("select * from dbo.books").ToList();
+
+            //sql injection attack prone
+            int id = 2;
+            var bookInter = _db.Books.FromSqlInterpolated($"select * from dbo.books where Book_Id={id}").ToList();
+
+            var bookSP = _db.Books.FromSqlInterpolated($"EXEC dbo.getAllBookDetails {id}").ToList();
+
+            //NET5
+
+            var includeFiltered1 = _db.Books.Include(e => e.BookAuthors.Where(a => a.AuthorId == 2)).ToList();
+            var includeFiltered2 = _db.Books.Include(e => e.BookAuthors.OrderByDescending(a => a.AuthorId).Take(2)).ToList();
 
             return RedirectToAction(nameof(Index));
+
+
         }
     }
 }
