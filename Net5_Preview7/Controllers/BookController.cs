@@ -144,6 +144,9 @@ namespace Net5_Preview7.Controllers
             IQueryable<Book> bookList2 = _db.Books;
             var filteredBook2 = bookList2.Where(b => b.Price > 500).ToList();
 
+            var category = _db.Categories.FirstOrDefault();
+            _db.Entry(category).State = EntityState.Modified;
+
             //updating related data
 
             var bookTemp1 = _db.Books.Include(b => b.BookDetail).FirstOrDefault(b => b.Book_Id == 4);
