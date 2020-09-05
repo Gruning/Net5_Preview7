@@ -1,4 +1,4 @@
-﻿@model WizLib_Model.ViewModels.BookAuthorVM
+﻿@model Net5_Model.ViewModels.BookAuthorVM
 
 <div class="container p-3 border">
     <div class="row">
@@ -6,7 +6,7 @@
             <form method="post" action="ManageAuthors" class="row">
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                 <input type="hidden" asp-for="Book.Book_Id" />
-                <input type="hidden" asp-for="BookAuthor.Book_Id" />
+                <input type="hidden" asp-for="BookAuthor.BookId" />
 
                 <div class="col-4">
                     <label asp-for="Book.Title"></label>
@@ -18,7 +18,7 @@
                     <label asp-for="BookAuthor.Author.FullName"></label>
                 </div>
                 <div class="col-8">
-                    @Html.DropDownListFor(u => u.BookAuthor.Author_Id, Model.AuthorList, "--Select Author--",
+                    @Html.DropDownListFor(u => u.BookAuthor.AuthorId, Model.AuthorList, "--Select Author--",
                         new { @class = "form-control" })
                 </div>
                 <div class="col-4 offset-4">
@@ -44,7 +44,7 @@
                     <div class="row pb-2">
                         <div class="col-8 text-right" style="font-size:23px;">@auth.Author.FullName</div>
                         <div class="col-4">
-                            <button asp-action="RemoveAuthors" type="submit" class="btn btn-danger form-control" asp-route-authorId="@auth.Author_Id">Remove</button>
+                            <button asp-action="RemoveAuthors" type="submit" class="btn btn-danger form-control" asp-route-authorId="@auth.AuthorId">Remove</button>
                         </div>
                     </div>
                 }
