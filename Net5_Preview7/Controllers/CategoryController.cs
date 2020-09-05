@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Net5_DataAccess.Data;
 using Net5_Model.Models;
 
@@ -17,7 +18,7 @@ namespace Net5_Preview7.Controllers
         }
         public IActionResult Index()
         {
-            List<Category> objList = _db.Categories.ToList();
+            List<Category> objList = _db.Categories.AsNoTracking().ToList();
             return View(objList);
         }
         public IActionResult Upsert(int? id)
